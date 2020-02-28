@@ -1,10 +1,11 @@
 public class stringParse{
 
-    public static String(String input){
+    public static String parse(String input){
         String sentence = input;
-        String response;
+        String response = "";
+        String[] parsed = sentence.split(" ");
 
-        
+
         return response;
     }
 
