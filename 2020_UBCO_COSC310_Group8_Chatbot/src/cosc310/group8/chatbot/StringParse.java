@@ -1,4 +1,6 @@
-public class stringParse{
+package cosc310.group8.chatbot;
+
+public class StringParse{
 
     public static String parse(String input){
         String sentence = input;
