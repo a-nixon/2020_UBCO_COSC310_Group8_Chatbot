@@ -24,6 +24,12 @@
                         <MenuItem text="Save As" onAction="#onSaveAs" />
                     </items>
                 </Menu>
+                <Menu text="Debug">
+                    <MenuItem text="Print Selected Categories"
+                              onAction="#onPrintCats"/>
+                    <MenuItem text="Print Database" onAction="#onPrintDB"/>  
+                    <MenuItem text="Print Toggles" onAction="#onPrintToggles"/> 
+                </Menu>
             </menus>
         </MenuBar>
     </top>
