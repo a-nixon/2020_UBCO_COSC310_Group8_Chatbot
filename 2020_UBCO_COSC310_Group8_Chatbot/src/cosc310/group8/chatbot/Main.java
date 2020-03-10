@@ -9,6 +9,7 @@ public class Main extends Application{
     
     //Command line flags:
     private static boolean ShouldLaunchResponseManager = false;
+    private static String filepath = "default.db";
     
     
     public static void main(String[] args){
@@ -20,6 +21,13 @@ public class Main extends Application{
                 case "-manager": //Flag to launch the Response Manager.
                     ShouldLaunchResponseManager = true;
                     break;
+                case "-db": //Flag to specify an alternate response database.
+                    i++;
+                    if(i<args.length){
+                        filepath = args[i];
+                    }else{
+                        System.err.println("Please specify database path after -db flag.");
+                    }
                 default:
                     break;
             }
@@ -40,5 +48,19 @@ public class Main extends Application{
         Thread bot = new Thread(new ChatBot());
         bot.start();
         
+    }
+    /**
+     * Gets the database file path.
+     * @return String
+     */
+    public static String getFilepath(){
+        return filepath;
+    }
+    /**
+     * Sets the database file path.
+     * @param s the new file path
+     */
+    public static void setFilepath(String s){
+        filepath = s;
     }
 }

@@ -14,9 +14,21 @@
     <stylesheets>
         <URL value="@ResponseManager.css"/>
     </stylesheets>
-    <top></top>
+    <top>
+        <MenuBar>
+            <menus>
+                <Menu text="Database">
+                    <items>
+                        <MenuItem text="Load" onAction="#onLoad" />
+                        <MenuItem text="Save" onAction="#onSave" />
+                        <MenuItem text="Save As" onAction="#onSaveAs" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
     <left>
-        <VBox>
+        <VBox styleClass="border" fx:id="controlBox">
             <VBox styleClass="spacer">
                 <Button text="Add Topic" onAction="#addTopic"/>  
                 <Button text="Remove Topic" onAction="#removeTopic"/>  
@@ -25,7 +37,9 @@
                 <Button text="Add Keyword" onAction="#addKeyword"/>  
                 <Button text="Remove Keyword" onAction="#removeKeyword"/>  
             </VBox>
-            <Button text="Add Response" onAction="#addResponse"/> 
+            <VBox styleClass="spacer">
+                <Button text="Add Response" onAction="#addResponse"/> 
+            </VBox>
         </VBox>
     </left>
     <center>
@@ -38,7 +52,7 @@
             </top>
             <center>
                 <VBox>
-                    <HBox>
+                    <HBox styleClass="border">
                         <Pane styleClass="spacer">
                             <VBox fx:id="topicBox" >
                                 <Label text="Topics"/> 
@@ -56,7 +70,7 @@
                         </Pane> 
                     </HBox>
                     <Label text="Responses"/>
-                    <VBox fx:id="responseBox"></VBox> 
+                    <VBox fx:id="responseBox"  styleClass="border"></VBox> 
                 </VBox>
             </center>
         </BorderPane>
