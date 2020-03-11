@@ -19,11 +19,12 @@ import javafx.scene.layout.VBox;
  */
 class Response extends HBox{
     
-    private final String text; //The text to return from the data base
+    private String text; //The text to return from the data base
     private final String topic, type, keyword;
     private final ArrayList<ArrayList<ArrayList<ArrayList<Response>>>> list;
     private final VBox parent;
     private final ResponseManager rm;
+    private final Label label;
     
     public Response(VBox parent, ResponseManager rm,
             ArrayList<ArrayList<ArrayList<ArrayList<Response>>>> list,
@@ -56,16 +57,24 @@ class Response extends HBox{
                 .get(rm.string2index(ResponseManager.TYPES_ID, type))
                 .get(rm.string2index(ResponseManager.KEYWORDS_ID, keyword))
                 .add(this);
-        getChildren().add(new Label(text));
-        Button b = new Button("Delete");
-        b.setOnAction((EventHandler) e -> {
+        label = new Label(text);
+        getChildren().add(label);
+        Button deleteButton = new Button("Delete");
+        deleteButton.setOnAction((EventHandler) e -> {
             list.get(rm.string2index(ResponseManager.TOPICS_ID, topic))
                 .get(rm.string2index(ResponseManager.TYPES_ID, type))
                 .get(rm.string2index(ResponseManager.KEYWORDS_ID, keyword))
                 .remove(this);
             parent.getChildren().remove(this);
         });
-        getChildren().add(b);
+        getChildren().add(deleteButton);
+        Button editButton = new Button("Edit");
+        editButton.setOnAction((EventHandler) e -> {
+            //System.out.println("Edit button pressed.");
+            rm.editResponsePane(this);
+            //System.out.println("Edit pane called.");
+        });
+        getChildren().add(editButton);
     }
     
     /**
@@ -98,6 +107,10 @@ class Response extends HBox{
      */
     public String getText(){
         return text;
+    }
+    public void setText(String newText){
+        this.text = newText;
+        label.setText(text);
     }
     @Override
     public String toString(){
