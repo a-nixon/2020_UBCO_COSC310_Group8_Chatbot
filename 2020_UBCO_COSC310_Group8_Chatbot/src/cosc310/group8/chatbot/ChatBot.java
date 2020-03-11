@@ -6,10 +6,13 @@ public class ChatBot implements Runnable{
     private String userName;
     private String question;
     
+    private final DataBase db;
+    private StringParse parser;
+    
     public ChatBot(){
         this.role = "Call Center Agent";
-        init();
-
+        db = new DataBase();
+        parser = new StringParse();
             
     }
 
@@ -29,8 +32,8 @@ public class ChatBot implements Runnable{
         this.userName = input.nextLine();
         System.out.println("Hello " + userName + " How may I help you?");
         this.question = input.nextLine();
-        stringParse.parse(question);
-        StringParse.parse(question);
+
+        parser.parse(question, db);
 
     }
 }
