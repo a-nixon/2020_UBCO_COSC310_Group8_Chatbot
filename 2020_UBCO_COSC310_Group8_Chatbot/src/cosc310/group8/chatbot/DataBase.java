@@ -1,10 +1,10 @@
-package ubc.cosc310.group8.chatbot;
+package cosc310.group8.chatbot;
 
 /**
  *
  * @author Alec Nixon, 30905160
  */
-public class DataBase {
+public class DataBase { 
     /**
      * A 3D array of strings. the first dimension corresponds to the topic,
      * the second to the type of input (questions, statements, etc), the third
@@ -20,7 +20,7 @@ public class DataBase {
      * Reads content in from a file to the data base.
      */
     public DataBase(){
-        //TODO
+        responses = (String[][][][]) (DBLoader.load(Main.getFilepath()))[1];
     }
     
     public String getResponse(String topic, String type, String keyword){
