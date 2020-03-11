@@ -23,6 +23,7 @@ public class ChatBot implements Runnable{
         this.role = s;
     }
 
+    
     //Renamed from init to implement multi-threading.
     @Override
     public void run(){
@@ -31,6 +32,7 @@ public class ChatBot implements Runnable{
         this.userName = input.nextLine();
         System.out.println("Hello " + userName + " How may I help you?");
         this.question = input.nextLine();
+
         parser.parse(question, db);
 
     }
