@@ -378,6 +378,25 @@ public class ResponseManager implements Initializable {
         center.getChildren().add(pane);
         tf.requestFocus();
     }
+    public void editResponsePane(Response response){
+        Pane pane = new Pane();
+        VBox vbox = new VBox();
+        TextField tf = new TextField();
+        Button b = new Button("Submit");
+        pane.getChildren().add(vbox);
+        vbox.getChildren().add(new Label("Edit existing response"));
+        vbox.getChildren().add(tf);
+        vbox.getChildren().add(b);
+        b.setOnAction((EventHandler) e -> {
+            //System.out.println("Button onAction triggered");
+            response.setText(tf.getText());
+            //System.out.println("Setting text to "+tf.getText());
+            tf.setText("");
+        }); 
+        center.getChildren().clear();
+        center.getChildren().add(pane);
+        tf.requestFocus();
+    }
     /**
      * 
      * @param list the list the index is being found for.
