@@ -58,25 +58,33 @@
             </top>
             <center>
                 <VBox>
-                    <HBox styleClass="border">
-                        <Pane styleClass="spacer">
-                            <VBox fx:id="topicBox" >
-                                <Label text="Topics"/> 
-                            </VBox>
-                        </Pane>
-                        <Pane styleClass="spacer">
-                            <VBox fx:id="typeBox" >
-                                <Label text="Types/Actions"/> 
-                            </VBox>
-                        </Pane> 
-                        <Pane styleClass="spacer">
-                            <VBox fx:id="keywordBox" >
-                                <Label text="Keywords"/> 
-                            </VBox>
-                        </Pane> 
-                    </HBox>
+                    <ScrollPane>
+                        <content>
+                            <HBox styleClass="border">
+                                <Pane styleClass="spacer">
+                                    <VBox fx:id="topicBox" >
+                                        <Label text="Topics"/> 
+                                    </VBox>
+                                </Pane>
+                                <Pane styleClass="spacer">
+                                    <VBox fx:id="typeBox" >
+                                        <Label text="Types/Actions"/> 
+                                    </VBox>
+                                </Pane> 
+                                <Pane styleClass="spacer">
+                                    <VBox fx:id="keywordBox" >
+                                        <Label text="Keywords"/> 
+                                    </VBox>
+                                </Pane> 
+                            </HBox>
+                        </content>
+                    </ScrollPane>
                     <Label text="Responses"/>
-                    <VBox fx:id="responseBox"  styleClass="border"></VBox> 
+                    <ScrollPane>
+                        <content>
+                            <VBox fx:id="responseBox"  styleClass="border"/> 
+                        </content>
+                    </ScrollPane>
                 </VBox>
             </center>
         </BorderPane>
