@@ -21,25 +21,29 @@ public class StringParse{
         }
         String[] parsed = input.split(" ");
         ArrayList<Integer> usedWords = new ArrayList<>(2);
+        int topicFlag = -1;
         for(int i = 0; i < parsed.length; i++){
             if(db.isTopic(parsed[i])){
                 cTopic = parsed[i];
+                topicFlag = i;
+                break;
+            }
+        }
+        int typeFlag = -1;
+        for(int i = 0; i < parsed.length; i++){
+            if(db.isType(parsed[i]) && i != topicFlag){
+                cType = parsed[i];
+                typeFlag = i;
                 break;
             }
         }
         for(int i = 0; i < parsed.length; i++){
-            if(db.isType(parsed[i]) && !usedWords.contains(i)){
-                cTopic = parsed[i];
-                break;
-            }
-        }
-        for(int i = 0; i < parsed.length; i++){
-            if(db.isKeyword(parsed[i]) && !usedWords.contains(i)){
+            if(db.isKeyword(parsed[i]) && i != topicFlag && i != typeFlag){
                 cKeyword = parsed[i];
                 break;
             }
         }
-
+//        System.out.println("Getting response for: topic="+cTopic+", type="+cType+", keyword="+cKeyword); //For debugging only.
         return db.getResponse(cTopic, cType, cKeyword);
     }
 

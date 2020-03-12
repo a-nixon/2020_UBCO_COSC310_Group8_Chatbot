@@ -60,13 +60,16 @@ public class DataBase {
 //                break;
 //        }
         String response;
-        if (responses[iTopic][iType][iKey].length != 0) {
+        if (responses[iTopic][iType][iKey].length > 0) {
             response = responses[iTopic][iType][iKey][(int) (Math.random() * responses[iTopic][iType][iKey].length)]; //Randomly choose one of the correct resposes.
         } else {
             response = responses[string2index(topics, "unknown")]
                     [string2index(types, "unknown")]
                     [string2index(keywords, "unknown")]
-                    [(int) (Math.random() * responses[iTopic][iType][iKey].length)];
+                    [(int) (Math.random() 
+                    * responses[string2index(topics, "unknown")]
+                    [string2index(types, "unknown")]
+                    [string2index(keywords, "unknown")].length)];
         }
         //Allow the keyword to change in response to input. If the keyword should change, add the new keyword to the end of the response separated with a "|" (no quotation marks).
         if(response.contains("|")){
@@ -132,18 +135,31 @@ public class DataBase {
     }
     public void printDB(){
         System.out.println("Topics:");
-        for (String topic : topics) {
-            System.out.println(topic);
+        for (int i = 0; i < topics.length; i++) {
+            System.out.println("\t"+i+": "+topics[i]);
         }
         System.out.println("Types:");
-        for (String type : types) {
-            System.out.println(type);
+        for (int i = 0; i < types.length; i++) {
+            System.out.println("\t"+i+": "+types[i]);
         }
         System.out.println("Keywords:");
-        for (String keyword : keywords) {
-            System.out.println(keyword);
+        for (int i = 0; i < keywords.length; i++) {
+            System.out.println("\t"+i+": "+keywords[i]);
         }
-        //TODO
+        for(int i1 = 0; i1 < responses.length; i1++){
+            System.out.println(topics[i1]);
+            for(int i2 = 0; i2 < responses[i1].length; i2++){
+                System.out.println("\t"+types[i2]);
+                for(int i3 = 0; i3 < responses[i1][i2].length; i3++){
+                    System.out.println("\t\t"+keywords[i3]);
+                    System.out.println("\t\t\tNum. responses: "
+                            +responses[i1][i2][i3].length);
+                    for(String r : responses[i1][i2][i3]){
+                        System.out.println("\t\t\t"+r);
+                    }
+                }
+            }
+        }
     }
     
 }
