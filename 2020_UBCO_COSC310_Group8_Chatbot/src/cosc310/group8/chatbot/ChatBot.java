@@ -28,12 +28,11 @@ public class ChatBot implements Runnable{
     @Override
     public void run(){
         Scanner input = new Scanner(System.in);
-        System.out.println("Hello, my name is chatBot. May I start with your name?");
-        this.userName = input.nextLine();
-        System.out.println("Hello " + userName + " How may I help you?");
-        this.question = input.nextLine();
-
-        parser.parse(question, db);
+        System.out.println("Hello!");
+        while (true) {//Exit is handled in StringParser
+            this.question = input.nextLine();
+            System.out.println(parser.parse(question, db));
+        }
 
     }
 }
