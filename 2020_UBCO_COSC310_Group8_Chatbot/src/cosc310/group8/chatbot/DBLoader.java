@@ -21,7 +21,9 @@ public class DBLoader {
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(filepath))){
             r = (Object[]) in.readObject();
         } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(DBLoader.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error loading database.");
+            System.err.println("Exiting. . .");
+            System.exit(1);
         }
         return r;
     }
