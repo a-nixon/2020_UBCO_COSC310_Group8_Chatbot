@@ -1,6 +1,7 @@
 package cosc310.group8.chatbot;
 
 
+import java.util.Calendar;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -33,6 +34,10 @@ public class Main extends Application{
             }
         }
         launch(args);
+    }
+    
+    public static String date(){
+        return Calendar.getInstance().getTime().toString();
     }
 
     /**

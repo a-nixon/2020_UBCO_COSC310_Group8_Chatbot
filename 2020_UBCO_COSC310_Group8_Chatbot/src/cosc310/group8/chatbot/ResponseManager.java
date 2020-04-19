@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,17 +16,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  *
@@ -46,6 +52,10 @@ public class ResponseManager implements Initializable {
     
   
     private String filepath;
+    
+    //.db metadata. Only made on save.
+    private String auth = "null", //The computer account username that saved the db file.
+                   date = "null"; //THe day and time the db file was saved.
     
     
     //Toggle groups for radio buttons
@@ -99,9 +109,19 @@ public class ResponseManager implements Initializable {
         }
     }
     @FXML
+    private void onSaveDefault(ActionEvent event){
+        load("default.db");
+    }
+    @FXML
     private void onLoad(ActionEvent event){
-        
-        Object[] ser = DBLoader.load(filepath);
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select Database");
+        fc.getExtensionFilters().add(new ExtensionFilter("DataBase Files","*.db"));
+        load(fc.showOpenDialog(null).getName());
+    }
+
+    private void load(String fp) {
+        Object[] ser = DBLoader.load(fp);
         
         //Construct the category ArrayLists from the db header array
         String[][] header = (String[][]) ser[0];
@@ -117,10 +137,12 @@ public class ResponseManager implements Initializable {
         for (String item : header[2]) {
             addCat(keywords, item, keywordsTG, keywordBox);
         }
-        
+        auth = header[3][0];
+        date = header[3][1];
+
         //onPrintCats(null);
-        
-        
+
+
         //Construct the responses nested ArrayList from the db array
         String[][][][] db = (String[][][][]) ser[1];
         responses = new ArrayList<>(db.length);
@@ -134,8 +156,8 @@ public class ResponseManager implements Initializable {
                         responses.get(i1).get(i2).get(i3).add(i4,
                                 new Response(responseBox, this, responses,
                                         topics.get(i1), types.get(i2),keywords.get(i3),db[i1][i2][i3][i4])
-                                        )
-                                        ;
+                        )
+                                ;
                     }
                 }
             }
@@ -143,6 +165,10 @@ public class ResponseManager implements Initializable {
     }
     @FXML
     private void onSave(ActionEvent event){
+        onSave();
+    }
+
+    private void onSave() {
         //Construct the db array
         String[][][][] db;
         db = new String[responses.size()][][][];
@@ -159,7 +185,7 @@ public class ResponseManager implements Initializable {
             }
         }
         //Construct the db header array
-        String[][] dbHeader = new String[3][];
+        String[][] dbHeader = new String[4][];
         dbHeader[0] = new String[topics.size()];
         for(int i = 0; i < topics.size(); i++){
             dbHeader[0][i] = topics.get(i);
@@ -172,6 +198,7 @@ public class ResponseManager implements Initializable {
         for(int i = 0; i < keywords.size(); i++){
             dbHeader[2][i] = keywords.get(i);
         }
+        dbHeader[3] = new String[] {System.getProperty("user.name"), Main.date()};
         
         
         //Serialization code based off of https://www.tutorialspoint.com/java/java_serialization.htm
@@ -186,8 +213,19 @@ public class ResponseManager implements Initializable {
     }
     @FXML
     private void onSaveAs(ActionEvent event){
-        //TODO
-        System.err.println("Save As TODO");
+        
+        TextInputDialog input = new TextInputDialog("Save As");
+        input.setContentText("New File Name (do not include \".db\")");
+        Optional<String> fileName = input.showAndWait();
+        if(fileName.isPresent()){
+            filepath = fileName.get()+".db";
+            onSave();
+        }else{
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Save Failed");
+            alert.setContentText("Could not save file.");
+        }
+        
     }
     @FXML
     private void onPrintCats(ActionEvent event){
@@ -224,6 +262,11 @@ public class ResponseManager implements Initializable {
             System.out.println("\""
                     +(String) keywordsTG.getToggles().get(i).getUserData()+"\"");
         }
+    }
+    @FXML
+    private void onPrintMetadata(ActionEvent event){
+        System.out.println("Database saved by: "+auth);
+        System.out.println("on: "+date);
     }
     
     @Override

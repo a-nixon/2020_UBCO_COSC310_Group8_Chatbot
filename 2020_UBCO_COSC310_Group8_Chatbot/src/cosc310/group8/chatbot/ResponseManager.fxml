@@ -29,6 +29,7 @@
                               onAction="#onPrintCats"/>
                     <MenuItem text="Print Database" onAction="#onPrintDB"/>  
                     <MenuItem text="Print Toggles" onAction="#onPrintToggles"/> 
+                    <MenuItem text="Print Metadata" onAction="#onPrintMetadata"/> 
                 </Menu>
             </menus>
         </MenuBar>
