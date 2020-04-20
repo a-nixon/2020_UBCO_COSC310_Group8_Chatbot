@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cosc310.group8.chatbot.GUIController">
+    <stylesheets>
+        <URL value="@chatbot.css"/>
+    </stylesheets>
+    <center>
+        <ScrollPane fitToHeight="true" fitToWidth="true">
+            <content>
+                <TextArea fx:id="output" styleClass="consoleText" disable="true"
+                          id="output"/>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <TextField fx:id="input" styleClass="consoleText" onAction="#onInput" />
+    </bottom>
+</BorderPane>
