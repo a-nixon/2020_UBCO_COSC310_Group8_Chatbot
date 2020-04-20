@@ -13,6 +13,9 @@ public interface Environment {
     
     void setDB(DataBase db);
     DataBase getDB();
-    void startSockets();
+    void hostSocket(int port);
+    void hostSocket(int port, int maxLines);
+    void connectSocket(String address, int port);
+    void connectSocket(String address, int port, int maxLines);
     
 }
