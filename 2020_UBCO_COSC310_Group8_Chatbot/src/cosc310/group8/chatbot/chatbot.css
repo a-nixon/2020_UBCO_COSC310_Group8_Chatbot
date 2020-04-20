@@ -1,0 +1,19 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-control-inner-background: black;
+}
+.consoleText{
+    -fx-font-family: Consolas;
+    -fx-control-inner-background: black;
+    -fx-text-fill: #33ff00; 
+    -fx-highlight-text-fill: black;
+    -fx-highlight-fill: #33ff00;
+    -fx-focus-color: transparent;
+}
+#output, #output:disabled, #output:disabled > *{
+    -fx-opacity: 1.0;
+}
+

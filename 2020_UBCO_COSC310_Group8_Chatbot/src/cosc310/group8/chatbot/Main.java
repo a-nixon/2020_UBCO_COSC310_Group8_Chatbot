@@ -9,8 +9,10 @@ import javafx.stage.Stage;
 public class Main extends Application{
     
     //Command line flags:
-    private static boolean ShouldLaunchResponseManager = false;
+    private static boolean ShouldLaunchResponseManager = false, noGUI = false;
     private static String filepath = "default.db";
+    
+    private static Environment socketTarget;
     
     
     public static void main(String[] args){
@@ -21,6 +23,9 @@ public class Main extends Application{
             switch(args[i]){
                 case "-manager": //Flag to launch the Response Manager.
                     ShouldLaunchResponseManager = true;
+                    break;
+                case "-nogui":
+                    noGUI = true;
                     break;
                 case "-db": //Flag to specify an alternate response database.
                     i++;
@@ -48,11 +53,22 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         if (ShouldLaunchResponseManager) {
-            RMLauncher RML = new RMLauncher(primaryStage);
+            RMLauncher RML = new RMLauncher(new Stage());
         }
-        Thread bot = new Thread(new ChatBot());
-        bot.start();
-        
+        boolean guiStarted = false;
+        if(Main.shouldStartGUI()){
+            try {
+                GUILauncher GUIL = new GUILauncher(primaryStage, new DataBase());
+                guiStarted = true;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println("Error, could not launch GUI.");
+            }
+        }
+        if (!guiStarted) {
+            Thread bot = new Thread(new ConsoleChatBot());
+            bot.start();
+        }
     }
     /**
      * Gets the database file path.
@@ -67,5 +83,11 @@ public class Main extends Application{
      */
     public static void setFilepath(String s){
         filepath = s;
+    }
+    public static boolean shouldStartGUI(){
+        return !noGUI;
+    }
+    public void setEnvironment(Environment e){
+        socketTarget = e;
     }
 }
