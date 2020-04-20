@@ -12,6 +12,8 @@ public class Main extends Application{
     private static boolean ShouldLaunchResponseManager = false, noGUI = false;
     private static String filepath = "default.db";
     
+    private static Environment socketTarget;
+    
     
     public static void main(String[] args){
         /**
@@ -84,5 +86,8 @@ public class Main extends Application{
     }
     public static boolean shouldStartGUI(){
         return !noGUI;
+    }
+    public void setEnvironment(Environment e){
+        socketTarget = e;
     }
 }
