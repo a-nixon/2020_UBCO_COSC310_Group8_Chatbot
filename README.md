@@ -5,10 +5,13 @@ Made by Alec Nixon with contribution from Coleton Weninger
 
 
 
-## Features:  
+## Chatbot Features:  
 * **Database files**  
 Stores all chat dialogue in a database file. Easily change dialogue by specifying a different database.
 * **Database Manager** (AKA Respose Manager)  
-I GUI interface for editing chatbot respose databases.
-
+A GUI interface for editing chatbot respose databases.
+* **Networking**  
+Chatbot can act as a server, client or remote terminal for interacting with other chatbots. 
+Terminal mode does not generate any conversation, it allows users to connect to and interact
+with a remote chatbot (or any sockts server).  
 
