@@ -63,9 +63,15 @@ public class StringParse{
                     return "/remote is only available on GUI consoles.";
                 }
             case "/help":
-                return    "/exit     \tExits the program (all windows).\n"
-                        + "/refreshdb\tReloads the database.\n"
-                        + "/printdb  \tPrints the database to the system console.";
+            case "/h":
+                return    "Help:\n"
+                        + "/help                 \tShows this dialogue.\n"
+                        + "/exit                 \tExits the program (all windows).\n"
+                        + "/refreshdb            \tReloads the database.\n"
+                        + "/printdb              \tPrints the database to the system console.\n"
+                        + "/host<port>           \tStarts a chatbot server on the specified port.\n"
+                        + "/join<address><port>  \tConnects the chatbot to the specified server.\n"
+                        + "/remote<address><port>\tAllows the user to use the GUI to connect to the specified server. Only available in the GUI.";
         }
         
         ArrayList<Integer> usedWords = new ArrayList<>(2);
